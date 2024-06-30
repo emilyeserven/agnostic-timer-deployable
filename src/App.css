@@ -1,0 +1,79 @@
+.app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 10vh;
+  padding: 0 1.5em;
+}
+.timer-area {
+  text-align:center;
+}
+.main-timer {
+  font-size: 6em;
+}
+.timestamp-to-record {
+  font-size: 2.5em;
+}
+.timer-area button {
+  font-size: 1.25em;
+  margin: 0 0.25em;
+}
+.content-area {
+  margin-top: 1em;
+  max-width: 90%;
+  width: 100%;
+}
+form input {
+  width: calc(100% - 1em);
+  font-size:1.5em;
+  padding: 0.25em 0.5em;
+}
+.settings-container {
+  display: flex;
+  flex-direction: row;
+  margin: 0 -1em;
+}
+.settings {
+  width: calc(50% - 2em);
+  padding: 1em;
+}
+.settings-grid {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+.settings-block {
+  margin: 1em 0;
+}
+.settings-block h4 {
+  margin-bottom: 0.75em;
+}
+.settings-block button, .settings-block input {
+  margin-top: 1em;
+}
+.settings-grid input {
+  width: 100%;
+}
+
+/* "dark mode" cuz my eyes hurt */
+.app.dark-mode {
+  background-color: #222;
+  color: #ccc;
+}
+
+@media screen and (max-width: 480px) {
+  .main-timer {
+    font-size: 3em;
+  }
+  .settings-block {
+    width: 100%;
+  }
+  .settings-container {
+    flex-direction: column;
+    width: 100%;
+  }
+  .settings {
+    width: 100%;
+  }
+}
