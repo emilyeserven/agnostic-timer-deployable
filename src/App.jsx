@@ -13,6 +13,17 @@ import {DisplaySettings} from "./DisplaySettings";
 // TODO: Context stuff: https://stackoverflow.com/questions/41030361/how-to-update-react-context-from-inside-a-child-component
 
 
+// TODO: Move constants
+export const THEME = {
+    SYSTEM: 'system',
+    DARK: 'dark',
+    LIGHT: 'light',
+}
+
+export const LOCAL_STORAGE_KEYS = {
+    DARK_MODE: 'dark-mode',
+}
+
 // TODO: Consider having a DisplaySettings Context and a FunctionSettingsContext?
 export const SettingsContext = createContext({
     displayTimestampWhen: false,
@@ -74,14 +85,44 @@ export function App() {
 
     localStorage.setItem("testVal", "Froggy");
     const testVal = localStorage.getItem("testVal");
+    const testVal2 = localStorage.getItem("nonexistent");
     console.log(testVal);
+    console.log(testVal2);
+
 
     // Get the theme from the system
-    const isDarkTheme = useThemeDetector();
-    console.log('isDarkTheme', isDarkTheme);
+    const detectedTheme = useThemeDetector();
+
+    const getDarkTheme = () => {
+        let darkModeValue = '';
+        // check for a local storage value
+        const lsDarkMode = localStorage.getItem(LOCAL_STORAGE_KEYS.DARK_MODE);
+        console.log('lsDarkMode', lsDarkMode);
+        // if it's null, use System as value and then set localStorage
+        if (lsDarkMode === null) {
+            // No system theme yet due to just using a button to toggle
+            /*
+                darkModeValue = detectedTheme;
+                localStorage.setItem(LOCAL_STORAGE_KEYS.DARK_MODE, THEME.SYSTEM);
+             */
+            darkModeValue = THEME.DARK;
+            localStorage.setItem(LOCAL_STORAGE_KEYS.DARK_MODE, THEME.DARK);
+        } else if (lsDarkMode === THEME.SYSTEM) {
+            // if it's set to "system", we need to check the system's theme
+            darkModeValue = detectedTheme;
+        } else {
+            darkModeValue = lsDarkMode;
+        }
+        // if not null, use whatever setting is listed
+        return darkModeValue;
+    }
+
+
+    const darkModeToUse = getDarkTheme();
+    console.log('isDarkTheme', darkModeToUse);
 
     // TODO: Some of this should be context and not state
-    const [darkMode, setDarkMode] = useState(isDarkTheme);
+    const [darkMode, setDarkMode] = useState(darkModeToUse);
     const [notes, setNotes] = useState({});
     const [newNote, setNewNote] = useState('');
     const [totalSecondsAtStart, setTotalSecondsAtStart] = useState(0);
@@ -158,7 +199,7 @@ export function App() {
 
     return (
         <SettingsContext.Provider value={contextValues}>
-            <div className={`app ${darkMode && 'dark-mode'}`}>
+            <div className={`app ${darkMode === THEME.DARK && 'dark-mode'}`}>
                 <div className='timer-area'>
                     <h1>Media-Agnostic Relatively-TImestamped Notetaker</h1>
                     <p>Or, uh, MARTIN for short.</p>
