@@ -1,8 +1,9 @@
 import './App.css';
-import { useStopwatch } from 'react-timer-hook';
-import {useEffect, useState, createContext} from "react";
+import {useStopwatch} from 'react-timer-hook';
+import {createContext, useEffect, useState} from "react";
 import {Notes} from "./Notes";
 import {DisplaySettings} from "./DisplaySettings";
+import {LOCAL_STORAGE_KEYS, THEME} from "./constants.js";
 
 // TODO: Make it typescript I guess
 // TODO: Would be lovely to have a button that copies all this in markdown format or something.
@@ -12,17 +13,6 @@ import {DisplaySettings} from "./DisplaySettings";
 // TODO: Maybe make the settings true/false/etc dropdowns instead of buttons later
 // TODO: Context stuff: https://stackoverflow.com/questions/41030361/how-to-update-react-context-from-inside-a-child-component
 
-
-// TODO: Move constants
-export const THEME = {
-    SYSTEM: 'system',
-    DARK: 'dark',
-    LIGHT: 'light',
-}
-
-export const LOCAL_STORAGE_KEYS = {
-    DARK_MODE: 'dark-mode',
-}
 
 // TODO: Consider having a DisplaySettings Context and a FunctionSettingsContext?
 export const SettingsContext = createContext({

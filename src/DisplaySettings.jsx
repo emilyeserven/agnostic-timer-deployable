@@ -1,5 +1,6 @@
-import {LOCAL_STORAGE_KEYS, SettingsBlock, SettingsContext, THEME} from "./App";
+import {SettingsBlock, SettingsContext} from "./App";
 import {useContext} from "react";
+import {LOCAL_STORAGE_KEYS, THEME} from "./constants.js";
 
 export function DisplaySettings() {
     const {
