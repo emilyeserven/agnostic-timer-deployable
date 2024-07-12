@@ -59,9 +59,11 @@ export function App() {
     } = useStopwatch();
 
     // Testing localStorage
+    /*
     localStorage.setItem("testVal", "Froggy");
     const testVal = localStorage.getItem("testVal");
     const testVal2 = localStorage.getItem("nonexistent");
+     */
 
     const darkModeToUse = getDarkThemeInitValue();
 
@@ -95,7 +97,7 @@ export function App() {
     function handleNoteChange(e) {
         if (newNote === '') {
             setTotalSecondsAtStart(totalSeconds);
-        };
+        }
         setNewNote(e.target.value);
     }
 
