@@ -62,11 +62,8 @@ export function App() {
     localStorage.setItem("testVal", "Froggy");
     const testVal = localStorage.getItem("testVal");
     const testVal2 = localStorage.getItem("nonexistent");
-    console.log(testVal);
-    console.log(testVal2);
 
     const darkModeToUse = getDarkThemeInitValue();
-    console.log('isDarkTheme', darkModeToUse);
 
     // TODO: Some of this should be context and not state
     const [darkMode, setDarkMode] = useState(darkModeToUse);

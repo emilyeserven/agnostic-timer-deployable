@@ -14,8 +14,6 @@ export function DisplaySettings() {
         setDarkMode
     } = useContext(SettingsContext);
 
-
-
     return (
         <>
             <h3>Display Settings</h3>

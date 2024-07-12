@@ -34,7 +34,6 @@ export const getDarkThemeInitValue = () => {
 
     // check for a local storage value
     const lsDarkMode = localStorage.getItem(LOCAL_STORAGE_KEYS.DARK_MODE);
-    console.log('lsDarkMode', lsDarkMode);
 
     // if it's null, use System as value and then set localStorage
     if (lsDarkMode === null) {
