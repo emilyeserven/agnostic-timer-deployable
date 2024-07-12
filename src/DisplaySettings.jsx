@@ -1,6 +1,6 @@
 import {SettingsBlock, SettingsContext} from "./App";
 import {useContext} from "react";
-import {LOCAL_STORAGE_KEYS, THEME} from "./constants.js";
+import {toggleDarkMode} from "./utils.js";
 
 export function DisplaySettings() {
     const {
@@ -14,17 +14,7 @@ export function DisplaySettings() {
         setDarkMode
     } = useContext(SettingsContext);
 
-    const toggleDarkMode = () => {
-        let newDarkModeVal;
-        if (darkMode === THEME.DARK) {
-            newDarkModeVal = THEME.LIGHT;
-            localStorage.setItem(LOCAL_STORAGE_KEYS.DARK_MODE, THEME.LIGHT);
-        } else {
-            newDarkModeVal = THEME.DARK;
-            localStorage.setItem(LOCAL_STORAGE_KEYS.DARK_MODE, THEME.DARK);
-        }
-        return newDarkModeVal;
-    }
+
 
     return (
         <>
@@ -54,7 +44,7 @@ export function DisplaySettings() {
                 <SettingsBlock
                     headerText={"Dark mode?"}>
                     Theme is currently {darkMode}.<br />
-                    <button onClick={() => {setDarkMode(toggleDarkMode())}}>Set to other mode</button>
+                    <button onClick={() => {setDarkMode(toggleDarkMode(darkMode))}}>Set to other mode</button>
                 </SettingsBlock>
             </div>
         </>
