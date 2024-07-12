@@ -5,7 +5,7 @@ import {Notes} from "./Notes";
 import {DisplaySettings} from "./DisplaySettings";
 import {THEME} from "./constants.js";
 
-import {getDarkTheme} from "./utils.js";
+import {getDarkThemeInitValue} from "./utils.js";
 
 // TODO: Make it typescript I guess
 // TODO: Would be lovely to have a button that copies all this in markdown format or something.
@@ -65,7 +65,7 @@ export function App() {
     console.log(testVal);
     console.log(testVal2);
 
-    const darkModeToUse = getDarkTheme();
+    const darkModeToUse = getDarkThemeInitValue();
     console.log('isDarkTheme', darkModeToUse);
 
     // TODO: Some of this should be context and not state

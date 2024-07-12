@@ -26,7 +26,7 @@ export const useThemeDetector = () => {
  * Otherwise, default to dark mode (for now).
  * @returns {string|boolean}
  */
-export const getDarkTheme = () => {
+export const getDarkThemeInitValue = () => {
     let darkModeValue;
 
     // Get the theme from the system
