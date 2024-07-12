@@ -1,9 +1,11 @@
 import './App.css';
 import {useStopwatch} from 'react-timer-hook';
-import {createContext, useEffect, useState} from "react";
+import {createContext, useState} from "react";
 import {Notes} from "./Notes";
 import {DisplaySettings} from "./DisplaySettings";
-import {LOCAL_STORAGE_KEYS, THEME} from "./constants.js";
+import {THEME} from "./constants.js";
+
+import {getDarkTheme} from "./utils.js";
 
 // TODO: Make it typescript I guess
 // TODO: Would be lovely to have a button that copies all this in markdown format or something.
@@ -44,23 +46,6 @@ export function SettingsBlock({headerText, children}) {
     );
 }
 
-// From: https://medium.com/hypersphere-codes/detecting-system-theme-in-javascript-css-react-f6b961916d48
-const useThemeDetector = () => {
-    const getCurrentTheme = () => window.matchMedia("(prefers-color-scheme: dark)").matches;
-    const [isDarkTheme, setIsDarkTheme] = useState(getCurrentTheme());
-    const mqListener = (e => {
-        setIsDarkTheme(e.matches);
-    });
-
-    useEffect(() => {
-        const darkThemeMq = window.matchMedia("(prefers-color-scheme: dark)");
-        darkThemeMq.addListener(mqListener);
-        return () => darkThemeMq.removeListener(mqListener);
-    }, []);
-    return isDarkTheme;
-}
-
-
 export function App() {
     const {
         totalSeconds,
@@ -73,40 +58,12 @@ export function App() {
         reset,
     } = useStopwatch();
 
+    // Testing localStorage
     localStorage.setItem("testVal", "Froggy");
     const testVal = localStorage.getItem("testVal");
     const testVal2 = localStorage.getItem("nonexistent");
     console.log(testVal);
     console.log(testVal2);
-
-
-    // Get the theme from the system
-    const detectedTheme = useThemeDetector();
-
-    const getDarkTheme = () => {
-        let darkModeValue = '';
-        // check for a local storage value
-        const lsDarkMode = localStorage.getItem(LOCAL_STORAGE_KEYS.DARK_MODE);
-        console.log('lsDarkMode', lsDarkMode);
-        // if it's null, use System as value and then set localStorage
-        if (lsDarkMode === null) {
-            // No system theme yet due to just using a button to toggle
-            /*
-                darkModeValue = detectedTheme;
-                localStorage.setItem(LOCAL_STORAGE_KEYS.DARK_MODE, THEME.SYSTEM);
-             */
-            darkModeValue = THEME.DARK;
-            localStorage.setItem(LOCAL_STORAGE_KEYS.DARK_MODE, THEME.DARK);
-        } else if (lsDarkMode === THEME.SYSTEM) {
-            // if it's set to "system", we need to check the system's theme
-            darkModeValue = detectedTheme;
-        } else {
-            darkModeValue = lsDarkMode;
-        }
-        // if not null, use whatever setting is listed
-        return darkModeValue;
-    }
-
 
     const darkModeToUse = getDarkTheme();
     console.log('isDarkTheme', darkModeToUse);
@@ -173,7 +130,7 @@ export function App() {
                 timestampOnEnter,
             };
 
-            const isTimestampOfPrevNoteSame = noteTotalSeconds === lastTimestamp.ts;
+            const isTimestampOfPrevNoteSame = noteTotalSeconds === lastTimestamp.ts
 
             if (isTimestampOfPrevNoteSame) {
                 setLastTimestamp({ts: noteTotalSeconds, num: (lastTimestamp.num + 1)});
